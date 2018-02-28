@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import InputPreview from '../components/InputPreview';
-import { connect } from 'react-redux';
-import { setMessage } from '../actions/message';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import InputPreview from "../components/InputPreview";
+import { connect } from "react-redux";
+import { setMessage } from "../actions/message";
+import { Link } from "react-router-dom";
 
 
 class AppEntry extends Component {
     _onChange = (value) => {
-        this.props.dispatch(setMessage(value))
+        this.props.dispatch(setMessage(value));
     }
 
     render() {
@@ -18,8 +18,8 @@ class AppEntry extends Component {
                 <Link to='/about'>
                     <button>Go to About</button>
                 </Link>
-            </div>
-        )
+            </div >
+        );
     }
 }
 
