@@ -3,6 +3,3 @@ hence use standard webpack watcher and reload manually or use it with webserver 
 $ yarn build -w
 $ yarn dev
 
-2) Install and setup eslint and eslint formatter
-
-3) Git push to alsimfer

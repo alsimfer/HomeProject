@@ -1,13 +1,14 @@
 {
-    "extends": "airbnb",
-    "plugins": [
-        "import"
-    ],
-    "settings": {
-        "import/resolver": {
-          "node": {
-            "paths": ["node-modules"]
-          }
-        }
+  "plugins": [
+    "import"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "node-modules"
+        ]
       }
+    }
+  }
 }
