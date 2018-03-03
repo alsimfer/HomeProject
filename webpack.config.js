@@ -7,6 +7,16 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin"); // Create CSS-
 const DIST_DIR = path.resolve(__dirname, "dist");
 const APP_DIR = path.resolve(__dirname, "src");
 
+const isProd = process.env.NODE_ENV === "production"; // HMR doesnt work with ETP
+const cssDev = ["style-loader", "css-loader", "sass-loader"];
+const cssProd = ExtractTextPlugin.extract({
+  fallback: "style-loader",
+  use: ["css-loader", "sass-loader"],
+  publicPath: "/dist"
+});
+
+const cssConfig = isProd ? cssProd :cssDev;
+
 module.exports = {
   entry: APP_DIR + "/index.js",
   output: {
@@ -14,25 +24,30 @@ module.exports = {
     filename: "bundle.js",
     publicPath: "/"
   },
+
   devServer: {
     contentBase: DIST_DIR,
     historyApiFallback: true,
     compress: true,
     stats: "errors-only",
-    open: true
+    open: true,
+    hot: true
   },
-  plugins: [new HtmlWebpackPlugin({
-    title: "HomePage",
-    // minify: {
-    //   collapseWhitespace: true
-    // },
-    // hash: true,
-    template: APP_DIR + "/index.html"
-  }), new ExtractTextPlugin({
-    filename: "styles.css",
-    disable: false,
-    allChunks: true
-  })],
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "HomePage",
+      template: APP_DIR + "/index.html"
+    }),
+    new ExtractTextPlugin({
+      filename: "styles.css",
+      disable: !isProd,
+      allChunks: true
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
+  ],
+
   module: {
     rules: [{
       test: /\.(js|jsx)$/,
@@ -40,11 +55,7 @@ module.exports = {
       use: "babel-loader",
     }, {
       test: /\.scss$/,
-      use: ExtractTextPlugin.extract({
-        fallback: "style-loader",
-        use: ["css-loader", "sass-loader"],
-        publicPath: "/dist"
-      }),
+      use: cssConfig
     }],
   },
 };

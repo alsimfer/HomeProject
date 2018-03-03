@@ -6,7 +6,7 @@ import AppRoutes from "./routes";
 
 const css = require("./styles.scss"); 
 
-console.log("Hi");
+console.log("Hi, bye");
 
 ReactDOM.render(
     <Provider store={store}>
