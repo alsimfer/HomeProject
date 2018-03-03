@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 function InputPreview({value, onChange}) {
   return (
@@ -9,8 +9,8 @@ function InputPreview({value, onChange}) {
         onChange={e => onChange(e.target.value)}
       />
     </div>
-  )      
+  );      
 }
 
-export default InputPreview
+export default InputPreview;
 
