@@ -1,6 +1,6 @@
 import React from "react";
 
-function InputPreview({value, onChange}) {
+function InputPreview({ value, onChange }) {
   return (
     <div>
       <input
