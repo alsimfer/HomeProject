@@ -15,14 +15,14 @@ const cssProd = ExtractTextPlugin.extract({
   publicPath: "/dist"
 });
 
-const cssConfig = isProd ? cssProd :cssDev;
+const cssConfig = isProd ? cssProd : cssDev;
 
 module.exports = {
   entry: APP_DIR + "/index.js",
   output: {
     path: DIST_DIR,
     filename: "bundle.js",
-    publicPath: "/"
+    // publicPath: "/"
   },
 
   devServer: {
@@ -54,8 +54,11 @@ module.exports = {
       exclude: /node_modules/,
       use: "babel-loader",
     }, {
-      test: /\.scss$/,
+      test: /\.(css|scss)$/,
       use: cssConfig
+    }, {
+      test: /\.(png|jpg|gif)$/,
+      use: "url-loader?limit=10000&name=imgs/[name].[ext]"  // Or publicPath & outputPath together s. also https://www.youtube.com/watch?v=cDLfpth5a3s          
     }],
   },
 };
