@@ -1,29 +1,50 @@
 const webpack = require("webpack");
 const path = require("path");
 
+const HtmlWebpackPlugin = require("html-webpack-plugin"); // Generate HTML-file
+const ExtractTextPlugin = require("extract-text-webpack-plugin"); // Create CSS-File from sass instead of injecting styles inline with loaders
+
+const DIST_DIR = path.resolve(__dirname, "dist");
+const APP_DIR = path.resolve(__dirname, "src");
+
 module.exports = {
-  entry: [
-    path.join(__dirname, "src/index.js"),
-  ],
+  entry: APP_DIR + "/index.js",
   output: {
-    path: path.join(__dirname, "public", "js"),
+    path: DIST_DIR,
     filename: "bundle.js",
-    publicPath: path.join(__dirname, "public", "js"), // Webserver doesnt work anyway, so not really needed
+    publicPath: "/"
   },
   devServer: {
-    contentBase: path.join(__dirname, "public"),
+    contentBase: DIST_DIR,
     historyApiFallback: true,
-    publicPath: path.join(__dirname, "public", "js"), // Webserver doesnt work anyway, not really needed
+    compress: true,
+    stats: "errors-only",
+    open: true
   },
+  plugins: [new HtmlWebpackPlugin({
+    title: "HomePage",
+    // minify: {
+    //   collapseWhitespace: true
+    // },
+    // hash: true,
+    template: APP_DIR + "/index.html"
+  }), new ExtractTextPlugin({
+    filename: "styles.css",
+    disable: false,
+    allChunks: true
+  })],
   module: {
     rules: [{
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
-      loader: "babel-loader",
+      use: "babel-loader",
     }, {
-      test: /\.less$/,
-      loaders: ["style-loader", "css-loader", "less-loader"],
-    },
-    ],
+      test: /\.scss$/,
+      use: ExtractTextPlugin.extract({
+        fallback: "style-loader",
+        use: ["css-loader", "sass-loader"],
+        publicPath: "/dist"
+      }),
+    }],
   },
 };

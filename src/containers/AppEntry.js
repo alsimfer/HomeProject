@@ -16,7 +16,7 @@ class AppEntry extends Component {
             <div>
                 <InputPreview value={message} onChange={this._onChange} />
                 <Link to='/about'>
-                    <button>Go to About</button>
+                    <button>Go to About1</button>
                 </Link>
             </div>
         );
