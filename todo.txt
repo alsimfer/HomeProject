@@ -1,3 +1,2 @@
-2) create a page with navbar from bootstrap
 3) add graph with INTERNET speed to one of the pages
 4) connect with DB

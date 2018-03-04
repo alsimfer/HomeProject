@@ -2,17 +2,21 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "./store";
-import AppRoutes from "./routes";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import Main from "./containers/Main";
+import Navigation from "./containers/Navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles.scss";
 
-// const css = require("./styles.scss"); 
-
-
-console.log("Hi, bye");
 
 ReactDOM.render(
-    <Provider store={store}>
-        <AppRoutes />
-    </Provider>,
-    document.getElementById("app")
+  <Provider store={store}>
+    <BrowserRouter>
+      <div>
+        <Navigation />
+        <Main />
+      </div>
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById("app")
 );
