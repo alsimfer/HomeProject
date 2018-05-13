@@ -3,14 +3,10 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-export default class Graphics extends Component {
+export default class About extends Component {
   render() {
-    return (
-      <Link to="/">
-        <Button>Go Home</Button>
-      </Link>
-    );
+    return <div>This is about page</div>;
   }
 }
 
-Graphics.propTypes = {};
+About.propTypes = {};

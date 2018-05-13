@@ -1,25 +1,28 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import InputPreview from "../components/InputPreview";
+import { setMessage } from "../actions/message";
 
-export default class Home extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
-  
+class Home extends Component {
+  _onChange = value => {
+    this.props.dispatch(setMessage(value));
+  };
 
   render() {
+    const { message } = this.props.messageReducer;
     return (
       <div>
-        Hallo Home
+        <InputPreview value={message} onChange={this._onChange} />
+        <Link to="/about">
+          <button>Go to About</button>
+        </Link>
       </div>
     );
   }
 }
 
-Home.propTypes = {
+export default connect(state => state)(Home);
 
-};
-
+Home.propTypes = {};
